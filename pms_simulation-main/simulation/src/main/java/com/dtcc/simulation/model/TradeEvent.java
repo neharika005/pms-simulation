@@ -8,11 +8,11 @@ import lombok.Data;
 @Data
 public class TradeEvent {
 
-    private UUID portfolio_Id;          
-    private UUID trade_Id;            
+    private UUID portfolioId;          
+    private UUID tradeId;            
     private String symbol;        
     private String side;            // BUY or SELL
-    private double price_Per_Stock;
+    private double pricePerStock;
     private long quantity;
     private LocalDateTime timestamp;
 }
