@@ -11,7 +11,7 @@ public class TradeEvent {
     private UUID portfolioId;          
     private UUID tradeId;            
     private String symbol;        
-    private String side;            // BUY or SELL
+    private String side;            
     private double pricePerStock;
     private long quantity;
     private LocalDateTime timestamp;

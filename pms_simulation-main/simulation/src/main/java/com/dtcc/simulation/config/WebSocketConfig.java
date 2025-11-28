@@ -11,7 +11,7 @@ import com.dtcc.simulation.handler.TradeWebSocketHandler;
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
-    private final TradeWebSocketHandler tradeWebSocketHandler;
+    private  TradeWebSocketHandler tradeWebSocketHandler;
 
     public WebSocketConfig(TradeWebSocketHandler tradeWebSocketHandler) {
         this.tradeWebSocketHandler = tradeWebSocketHandler;
