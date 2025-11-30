@@ -12,7 +12,7 @@ public class TradeEvent {
     private UUID tradeId;            
     private String symbol;        
     private String side;            
-    private double pricePerStock;
-    private long quantity;
+    private Double pricePerStock;
+    private Long quantity;
     private LocalDateTime timestamp;
 }

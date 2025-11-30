@@ -23,22 +23,41 @@ public class TradeGeneratorService {
     );
 
     private final List<String> symbolList = List.of(
-            "APPLE", "TATA", "HCL", "HDFC",
-            "META", "GOOGLE", "CANARA",
-            "AMD", "AMAZON", "NVIDIA"
+            "AAPL", "MSFT", "GOOGL", "AMZN", "META",
+            "NVDA", "TSLA", "NFLX", "AMD", "INTC",
+            "IBM", "ORCL", "BAC", "JPM", "WMT"
     );
+
+    private boolean isNegativeScenario() {
+        return random.nextDouble() < 0.05;
+    }
 
     public TradeEvent generateTrade() {
 
         TradeEvent trade = new TradeEvent();
+
         trade.setPortfolioId(pList.get(random.nextInt(pList.size())));
+
+        if (isNegativeScenario()) {
+
+            trade.setTradeId(null);
+            trade.setSymbol(null);
+            trade.setSide(null);
+            trade.setPricePerStock(null);
+            trade.setQuantity(null);
+            trade.setTimestamp(null);
+
+            return trade;
+        }
+
         trade.setTradeId(UUID.randomUUID());
         trade.setSymbol(symbolList.get(random.nextInt(symbolList.size())));
         trade.setSide(random.nextBoolean() ? "BUY" : "SELL");
-        trade.setPricePerStock(180 + random.nextDouble() * 20);
-        trade.setQuantity(10 + random.nextInt(490));
+        trade.setPricePerStock(100 + random.nextDouble() * 200);
+        long qty = 1 + random.nextInt(500);
+        trade.setQuantity(qty);
 
-        long hoursBack = 1 + random.nextInt(48);
+        long hoursBack = 1 + random.nextInt(72);
         LocalDateTime pastTime = LocalDateTime.now().minusHours(hoursBack);
         trade.setTimestamp(pastTime);
 
