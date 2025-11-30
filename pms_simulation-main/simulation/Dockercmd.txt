@@ -1,0 +1,4 @@
+docker build -t pms-simulation:1.0
+docker run -d --name pms-simulation-container -p 8080:8080 pms-simulation:1.0
+docker tag pms-simulation:1.0 nehanawork1/pms-simulation:1.0
+docker push nehanawork1/pms-simulation:1.0

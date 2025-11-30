@@ -18,16 +18,16 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @Service
 public class TradeSimulationService {
 
-    private final TradeGeneratorService generator;
-    private final ObjectMapper mapper;
+    private TradeGeneratorService generator;
+    private ObjectMapper mapper;
 
-    private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
+    private ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
 
-    private final Map<String, ScheduledFuture<?>> tradeTasks = new ConcurrentHashMap<>();
-    private final Map<String, ScheduledFuture<?>> paceTasks = new ConcurrentHashMap<>();
-    private final Map<String, Integer> speedIndex = new ConcurrentHashMap<>();
+    private Map<String, ScheduledFuture<?>> tradeTasks = new ConcurrentHashMap<>();
+    private Map<String, ScheduledFuture<?>> paceTasks = new ConcurrentHashMap<>();
+    private Map<String, Integer> speedIndex = new ConcurrentHashMap<>();
 
-    private final long[] speeds = {1000, 500, 150, 50, -1};
+    private long[] speeds = {1000, 500, 150, 50, -1};
 
     public TradeSimulationService(TradeGeneratorService generator) {
         this.generator = generator;
@@ -116,7 +116,7 @@ public class TradeSimulationService {
 
             session.sendMessage(new TextMessage(json));
 
-        } catch (Exception ignored) {
+        } catch (Exception ignored) {// when exception thrown execute a logic
         }
     }
 }

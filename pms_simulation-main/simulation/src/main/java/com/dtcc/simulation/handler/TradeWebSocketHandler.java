@@ -10,7 +10,7 @@ import com.dtcc.simulation.service.TradeSimulationService;
 @Component
 public class TradeWebSocketHandler extends TextWebSocketHandler {
 
-    private final TradeSimulationService simulationService;
+    private TradeSimulationService simulationService;
 
     public TradeWebSocketHandler(TradeSimulationService simulationService) {
         this.simulationService = simulationService;

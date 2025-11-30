@@ -12,9 +12,9 @@ import com.dtcc.simulation.model.TradeEvent;
 @Service
 public class TradeGeneratorService {
 
-    private final Random random = new Random();
+    private Random random = new Random();
 
-    private final List<UUID> pList = List.of(
+    private List<UUID> pList = List.of(
             UUID.fromString("a3f1c720-9b71-11ef-8023-9fb6bfe1c001"),
             UUID.fromString("a3f1c721-9b71-11ef-8023-9fb6bfe1c002"),
             UUID.fromString("a3f1c722-9b71-11ef-8023-9fb6bfe1c003"),
@@ -22,7 +22,7 @@ public class TradeGeneratorService {
             UUID.fromString("a3f1c724-9b71-11ef-8023-9fb6bfe1c005")
     );
 
-    private final List<String> symbolList = List.of(
+    private List<String> symbolList = List.of(
             "AAPL", "MSFT", "GOOGL", "AMZN", "META",
             "NVDA", "TSLA", "NFLX", "AMD", "INTC",
             "IBM", "ORCL", "BAC", "JPM", "WMT"
