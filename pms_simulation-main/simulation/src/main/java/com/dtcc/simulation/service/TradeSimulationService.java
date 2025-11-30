@@ -6,6 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
@@ -20,6 +22,8 @@ public class TradeSimulationService {
 
     private TradeGeneratorService generator;
     private ObjectMapper mapper;
+
+    private static Logger log = LoggerFactory.getLogger(TradeSimulationService.class);
 
     private ScheduledExecutorService executor = Executors.newScheduledThreadPool(10);
 
@@ -116,7 +120,11 @@ public class TradeSimulationService {
 
             session.sendMessage(new TextMessage(json));
 
-        } catch (Exception ignored) {// when exception thrown execute a logic
+        } catch (Exception e) {
+            log.error("Error while pushing trade event for session {}: {}" ,
+                session.getId(), e.getMessage());
         }
     }
 }
+
+
