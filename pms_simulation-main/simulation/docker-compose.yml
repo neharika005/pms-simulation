@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    command: >
+      bash -c "
+        rabbitmq-plugins enable --offline rabbitmq_stream;
+        rabbitmq-plugins enable --offline rabbitmq_stream_management;
+        rabbitmq-server
+      "
+    ports:
+      - "5672:5672"     # AMQP
+      - "15672:15672"   # RabbitMQ UI
+      - "5552:5552"     # STREAM PORT (important)
+
+  simulation:
+    build: .
+    container_name: simulation-app
+    depends_on:
+      rabbitmq:
+        condition: service_started   # prevents race condition
+    environment:
+      RABBITMQ_HOST: rabbitmq
+    ports:
+      - "8080:8080"

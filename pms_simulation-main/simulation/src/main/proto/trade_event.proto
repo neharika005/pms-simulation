@@ -1,0 +1,14 @@
+syntax = "proto3";
+package simulation;
+option java_package = "com.dtcc.simulation.proto";
+option java_outer_classname = "TradeEventOuterClass";
+
+message TradeEvent {
+  string portfolioId = 1;
+  string tradeId = 2;
+  string symbol = 3;
+  string side = 4;
+  double pricePerStock = 5;
+  int64 quantity = 6;
+  int64 timestamp = 7;
+}

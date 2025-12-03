@@ -35,18 +35,15 @@ public class TradeGeneratorService {
     public TradeEvent generateTrade() {
 
         TradeEvent trade = new TradeEvent();
-
         trade.setPortfolioId(pList.get(random.nextInt(pList.size())));
 
         if (isNegativeScenario()) {
-
             trade.setTradeId(null);
             trade.setSymbol(null);
             trade.setSide(null);
             trade.setPricePerStock(null);
             trade.setQuantity(null);
             trade.setTimestamp(null);
-
             return trade;
         }
 
@@ -54,12 +51,10 @@ public class TradeGeneratorService {
         trade.setSymbol(symbolList.get(random.nextInt(symbolList.size())));
         trade.setSide(random.nextBoolean() ? "BUY" : "SELL");
         trade.setPricePerStock(100 + random.nextDouble() * 200);
-        long qty = 1 + random.nextInt(500);
-        trade.setQuantity(qty);
+        trade.setQuantity((long) (1 + random.nextInt(500)));
 
         long hoursBack = 1 + random.nextInt(72);
-        LocalDateTime pastTime = LocalDateTime.now().minusHours(hoursBack);
-        trade.setTimestamp(pastTime);
+        trade.setTimestamp(LocalDateTime.now().minusHours(hoursBack));
 
         return trade;
     }
