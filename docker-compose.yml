@@ -14,17 +14,16 @@ services:
         rabbitmq-server
       "
     ports:
-      - "5672:5672"     # AMQP
-      - "15672:15672"   # RabbitMQ UI
-      - "5552:5552"     # STREAM PORT (important)
+      - "5672:5672"
+      - "15672:15672"
+      - "5552:5552"
 
   simulation:
     build: .
     container_name: simulation-app
     depends_on:
-      rabbitmq:
-        condition: service_started   # prevents race condition
+      - rabbitmq
     environment:
       RABBITMQ_HOST: rabbitmq
     ports:
-      - "8080:8080"
+      - "8090:8090"
