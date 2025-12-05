@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: portfolioId-generator
+
+  datasource:
+    url: jdbc:h2:mem:portfolio-db    
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  server:
+    port: 8095
+
+  jpa:
+    hibernate:
+      ddl-auto: none               
+    show-sql: true
+
+  sql:
+    init:
+      mode: always                   
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
+  h2:
+    console:
+      enabled: true
