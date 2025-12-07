@@ -1,15 +1,19 @@
 package com.example.portfolioId.generator.entity;
 
+import java.util.UUID;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
-@Data
 @Entity
-public class Portfolio {
+@Table(name = "investor_details")
+@Data
+public class InvestorDetails {
 
     @Id
-    private String id;
+    private UUID portfolioId;
 
     private String name;
     private String phone;

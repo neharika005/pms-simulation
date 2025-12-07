@@ -1,11 +1,13 @@
-package com.example.portfolioId.generator.service;
+package  com.example.portfolioId.generator.service;
+
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
 import com.example.portfolioId.generator.dto.PortfolioRequest;
 import com.example.portfolioId.generator.dto.PortfolioResponse;
-import com.example.portfolioId.generator.entity.Portfolio;
-import com.example.portfolioId.generator.repository.PortfolioRepository;
+import com.example.portfolioId.generator.entity.InvestorDetails;
+import com.example.portfolioId.generator.repository.InvestorDetailsRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,40 +15,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PortfolioService {
 
-    private final PortfolioRepository portfolioRepo;
+    private final InvestorDetailsRepository investorRepo;
 
     public PortfolioResponse createPortfolio(PortfolioRequest req) {
 
-        String lastUuid = portfolioRepo.findLastUuid();
-        if (lastUuid == null) {
-            throw new IllegalStateException("No base UUIDs found in DB. Insert initial 5 UUIDs first.");
-        }
+        UUID newId = UUID.randomUUID();
 
-        String newUuid = generateNextUuid(lastUuid);
+        InvestorDetails investor = new InvestorDetails();
+        investor.setPortfolioId(newId);
+        investor.setName(req.getName());
+        investor.setPhone(req.getPhone());
+        investor.setAddress(req.getAddress());
 
-        Portfolio p = new Portfolio();
-        p.setId(newUuid);
-        p.setName(req.getName());
-        p.setPhone(req.getPhone());
-        p.setAddress(req.getAddress());
+        investorRepo.save(investor);
 
-        portfolioRepo.save(p);
-
-        return new PortfolioResponse(newUuid, "Portfolio created successfully");
-    }
-
-    private String generateNextUuid(String lastUuid) {
-
-        String prefix = lastUuid.substring(0, lastUuid.length() - 3);
-
-        String lastThree = lastUuid.substring(lastUuid.length() - 3);
-
-        int number = Integer.parseInt(lastThree);
-
-        number++;
-
-        String newLastThree = String.format("%03d", number);
-
-        return prefix + newLastThree;
+        return new PortfolioResponse(newId);
     }
 }
